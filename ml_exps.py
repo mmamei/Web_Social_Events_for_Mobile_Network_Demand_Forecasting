@@ -12,7 +12,7 @@ import numpy as np, pandas as pd, matplotlib.pyplot as plt, re, glob
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 
 # ---------------- CONFIGURATION ----------------
-DATA_PATH = "data/prediction_clusto_*.csv"
+DATA_PATH = "prediction_clusto_*.csv"
 CANCEL_GRID = [0.1, 0.2, 0.3]
 FP_GRID     = [0.05, 0.10, 0.20]
 SHIFT_GRID  = [0, 1, 2]
@@ -115,6 +115,7 @@ for cid, dfc in clusters.items():
 results = pd.DataFrame(records)
 print(results.head())
 
+
 # ---------------- SUMMARY BY SCENARIO SEVERITY ----------------
 def severity(c,f,s): return c*10 + f*5 + s
 results["severity"] = results.apply(lambda r: severity(r.CANC, r.FP, r.SHIFT), axis=1)
@@ -180,10 +181,10 @@ except Exception:
 print(f"Python {sys.version.split()[0]} | NumPy {np.__version__} | pandas {pd.__version__} | TF: {TF_AVAILABLE}")
 
 # ---------------- CONFIG ----------------
-RAW_GLOB = "data/nantes_antenna_serv_*.csv"
-SERVICES_CLUSTERS = "data/services_clusters.csv"
-ANTENNAS_FILE = "data/nantes_antenna_clustering.csv"
-SERVICE_CLUSTER_FILE = "data/service_clustering.csv"
+RAW_GLOB = "nantes_antenna_serv_*.csv"
+SERVICES_CLUSTERS = "services_clusters.csv"
+ANTENNAS_FILE = "nantes_antenna_clustering.csv"
+SERVICE_CLUSTER_FILE = "service_clustering.csv"
 
 SELECTED_CLUSTERS: List[int] = None    # es. [0,3] per urbano+suburbano; None = tutti
 TEST_SIZE_FRACTION = 0.2                # 20% test (in coda temporale)
@@ -316,12 +317,14 @@ def evaluate_node(df_node: pd.DataFrame, n_lags: int = 24) -> pd.DataFrame:
     return pd.DataFrame(rows), test[['date','hour','far_edge']].reset_index(drop=True), preds, yte
 
 # ---------------- RUN ----------------
+
 antennas = pd.read_csv(ANTENNAS_FILE)
 services_clusters = ensure_services_clusters()
 available_clusters = sorted(services_clusters['labels'].dropna().astype(int).unique().tolist())
 print("[INFO] Clusters disponibili:", available_clusters)
 if SELECTED_CLUSTERS is None:
     SELECTED_CLUSTERS = available_clusters
+
 
 all_metrics = []
 pernode = []
@@ -414,8 +417,8 @@ print("Versions:",
 DATA_DIR = Path("data")
 RAW_GLOB = str(DATA_DIR / "nantes_antenna_serv_*.csv")
 SERVICES_CLUSTERS = DATA_DIR / "services_clusters.csv"
-ANTENNAS_FILE = Path("data/nantes_antenna_clustering.csv")
-SERVICE_CLUSTER_FILE = Path("data/service_clustering.csv")
+ANTENNAS_FILE = Path("nantes_antenna_clustering.csv")
+SERVICE_CLUSTER_FILE = Path("service_clustering.csv")
 
 HOURLY_DIR = DATA_DIR / "hourly_panels"  # cache Parquet
 HOURLY_DIR.mkdir(parents=True, exist_ok=True)
@@ -679,7 +682,6 @@ display_dataframe_to_user("Forecast summary (by model)", summary)
 print("Figures saved to outputs/.")
 
 
-# In[ ]:
 
 
 

@@ -1603,40 +1603,43 @@ offsets = {
 }
 colors = {"far":"#1f77b4","near":"#ff7f0e","core":"#2ca02c"}
 
-plt.figure(figsize=FIGSIZE)
-for layer in order_layer:
-    ys = []
-    yerr_low, yerr_up = [], []
-    xpos = []
-    for i, strat in enumerate(order_strat):
-        row = df_plot[(df_plot["layer"]==layer) & (df_plot["strategy"]==strat)]
-        if row.empty:
-            ys.append(np.nan); yerr_low.append(0); yerr_up.append(0); xpos.append(group_x[i] + offsets[layer])
-            continue
-        m, mn, mx = float(row["mean"]), float(row["min"]), float(row["max"])
-        ys.append(m)
-        # errorbars: min/max over days (averaged over clusters); use asymmetrical
-        yerr_low.append(max(0.0, m - mn))
-        yerr_up.append(max(0.0, mx - m))
-        xpos.append(group_x[i] + offsets[layer])
-    plt.bar(xpos, ys, width=width*0.95, color=colors[layer], label=labels_layer[layer],
-            yerr=[yerr_low, yerr_up], capsize=3, alpha=0.9)
+try:
+    plt.figure(figsize=FIGSIZE)
+    for layer in order_layer:
+        ys = []
+        yerr_low, yerr_up = [], []
+        xpos = []
+        for i, strat in enumerate(order_strat):
+            row = df_plot[(df_plot["layer"]==layer) & (df_plot["strategy"]==strat)]
+            if row.empty:
+                ys.append(np.nan); yerr_low.append(0); yerr_up.append(0); xpos.append(group_x[i] + offsets[layer])
+                continue
+            m, mn, mx = float(row["mean"]), float(row["min"]), float(row["max"])
+            ys.append(m)
+            # errorbars: min/max over days (averaged over clusters); use asymmetrical
+            yerr_low.append(max(0.0, m - mn))
+            yerr_up.append(max(0.0, mx - m))
+            xpos.append(group_x[i] + offsets[layer])
+        plt.bar(xpos, ys, width=width*0.95, color=colors[layer], label=labels_layer[layer],
+                yerr=[yerr_low, yerr_up], capsize=3, alpha=0.9)
 
-plt.xticks(group_x, [labels_strat[s] for s in order_strat])
-plt.ylabel("Traffic reduction over fixed capacity [%]")
-plt.title(f"Optimization results at C={int(C_FIXED*100)}% (avg across clusters)")
-plt.legend(ncol=3, loc="upper right")
-plt.grid(axis="y", linestyle=":", alpha=0.35)
-plt.tight_layout()
-plt.savefig("figure11_like_barplot.pdf", dpi=300, bbox_inches="tight")
-plt.show()
+    plt.xticks(group_x, [labels_strat[s] for s in order_strat])
+    plt.ylabel("Traffic reduction over fixed capacity [%]")
+    plt.title(f"Optimization results at C={int(C_FIXED*100)}% (avg across clusters)")
+    plt.legend(ncol=3, loc="upper right")
+    plt.grid(axis="y", linestyle=":", alpha=0.35)
+    plt.tight_layout()
+    plt.savefig("figure11_like_barplot.pdf", dpi=300, bbox_inches="tight")
+    plt.show()
 
-# Print numeric summary (means)
-print("\nFigure-11-like summary (avg across clusters):")
-print(df_plot.replace({"layer":labels_layer, "strategy":labels_strat})
-      .pivot(index="layer", columns="strategy", values="mean")
-      .round(2).to_string())
-
+    # Print numeric summary (means)
+    print("\nFigure-11-like summary (avg across clusters):")
+    print(df_plot.replace({"layer":labels_layer, "strategy":labels_strat})
+        .pivot(index="layer", columns="strategy", values="mean")
+        .round(2).to_string())
+except Exception as e:
+    print("Error during plotting:", e)
+    print("Dataframe for plotting:")
 
 # In[5]:
 
@@ -1751,9 +1754,9 @@ def simulate_on_group_values(g, cancel_rate, fp_rate, shift_steps):
 
     # ricostruisci nell’ordine originale (preserva valori non numerici/NaN)
     value_corr_full = g["value"].to_numpy()
-    for pos, idx in enumerate(idx_sorted):
-        if np.isfinite(val[pos]):
-            value_corr_full[np.where(g.index == idx)[0][0]] = val_corr[pos]
+    #for pos, idx in enumerate(idx_sorted):
+    #    if np.isfinite(val[pos]):
+    #        value_corr_full[np.where(g.index == idx)[0][0]] = val_corr[pos]
     return value_corr_full
 
 # ======== MAIN: genera 5×27 CSV con value modificato (predicted invariato) ========
@@ -1784,7 +1787,6 @@ pd.DataFrame(scenario_map).to_csv(os.path.join( "prediction_clusto_scenarios_map
 print(f"Saved modified CSVs (value perturbed, predicted unchanged)")
 
 
-# In[ ]:
 
 
 
