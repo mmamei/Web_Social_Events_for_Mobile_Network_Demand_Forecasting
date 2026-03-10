@@ -115,7 +115,6 @@ for cid, dfc in clusters.items():
 results = pd.DataFrame(records)
 print(results.head())
 
-
 # ---------------- SUMMARY BY SCENARIO SEVERITY ----------------
 def severity(c,f,s): return c*10 + f*5 + s
 results["severity"] = results.apply(lambda r: severity(r.CANC, r.FP, r.SHIFT), axis=1)
@@ -200,7 +199,7 @@ def ensure_services_clusters():
     if len(raw_files)==0:
         raise FileNotFoundError(
             f"Missing {SERVICES_CLUSTERS} and no raw {RAW_GLOB}. "
-            f"Fornisci data/services_clusters.csv (creato con il tuo script v08)."
+            f"Fornisci data/services_clusters.csv"
         )
     print(f"[BUILD] services_clusters from {len(raw_files)} raws")
     df = pd.concat([pd.read_csv(f) for f in raw_files], axis=0).drop_duplicates().reset_index(drop=True)
@@ -317,14 +316,12 @@ def evaluate_node(df_node: pd.DataFrame, n_lags: int = 24) -> pd.DataFrame:
     return pd.DataFrame(rows), test[['date','hour','far_edge']].reset_index(drop=True), preds, yte
 
 # ---------------- RUN ----------------
-
 antennas = pd.read_csv(ANTENNAS_FILE)
 services_clusters = ensure_services_clusters()
 available_clusters = sorted(services_clusters['labels'].dropna().astype(int).unique().tolist())
 print("[INFO] Clusters disponibili:", available_clusters)
 if SELECTED_CLUSTERS is None:
     SELECTED_CLUSTERS = available_clusters
-
 
 all_metrics = []
 pernode = []
@@ -414,11 +411,11 @@ print("Versions:",
       f"TF={TF_AVAILABLE}", sep=" | ")
 
 # ---------------- CONFIG ----------------
-DATA_DIR = Path("data")
+DATA_DIR = Path("")
 RAW_GLOB = str(DATA_DIR / "nantes_antenna_serv_*.csv")
-SERVICES_CLUSTERS = DATA_DIR / "services_clusters.csv"
-ANTENNAS_FILE = Path("nantes_antenna_clustering.csv")
-SERVICE_CLUSTER_FILE = Path("service_clustering.csv")
+SERVICES_CLUSTERS = str(DATA_DIR / "services_clusters.csv")
+ANTENNAS_FILE = Path(str(DATA_DIR / "nantes_antenna_clustering.csv"))
+SERVICE_CLUSTER_FILE = Path(str(DATA_DIR / "service_clustering.csv"))
 
 HOURLY_DIR = DATA_DIR / "hourly_panels"  # cache Parquet
 HOURLY_DIR.mkdir(parents=True, exist_ok=True)
@@ -541,7 +538,7 @@ def ensure_services_clusters(services_clusters_path: Path) -> pd.DataFrame:
     if len(raw_files) == 0:
         raise FileNotFoundError(
             f"Missing {services_clusters_path} and no raw files under {RAW_GLOB}.\n"
-            f"Fornisci data/services_clusters.csv (generato con il tuo script) oppure i CSV raw."
+            f"Fornisci services_clusters.csv oppure i CSV raw."
         )
     print(f"[BUILD] services_clusters from {len(raw_files)} raws")
     df = pd.concat([pd.read_csv(f) for f in raw_files], axis=0).drop_duplicates().reset_index(drop=True)
@@ -682,6 +679,7 @@ display_dataframe_to_user("Forecast summary (by model)", summary)
 print("Figures saved to outputs/.")
 
 
+# In[ ]:
 
 
 
