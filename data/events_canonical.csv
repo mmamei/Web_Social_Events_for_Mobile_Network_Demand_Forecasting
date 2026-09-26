@@ -1,0 +1,34 @@
+date,event_type,title,start_hour,duration_hours,venue,latitude,longitude,intensity,base_relevance,source,synthetic
+2019-03-03,nantes_fixture,Nantes football fixture-day 2019-03-03,,24,,,,1.0,1.0,manual_csv,False
+2019-03-06,nantes_fixture,Nantes football fixture-day 2019-03-06,,24,,,,1.0,1.0,manual_csv,False
+2019-03-07,europa_matchday,Europa League match-day 2019-03-07,,24,,,,1.0,1.0,manual_csv,False
+2019-03-14,europa_matchday,Europa League match-day 2019-03-14,,24,,,,1.0,1.0,manual_csv,False
+2019-03-17,nantes_fixture,Nantes football fixture-day 2019-03-17,,24,,,,1.0,1.0,manual_csv,False
+2019-03-31,nantes_fixture,Nantes football fixture-day 2019-03-31,,24,,,,1.0,1.0,manual_csv,False
+2019-04-03,nantes_fixture,Nantes football fixture-day 2019-04-03,,24,,,,1.0,1.0,manual_csv,False
+2019-04-07,nantes_fixture,Nantes football fixture-day 2019-04-07,,24,,,,1.0,1.0,manual_csv,False
+2019-04-09,champions_matchday,Champions League match-day 2019-04-09,,24,,,,1.0,1.0,manual_csv,False
+2019-04-10,champions_matchday,Champions League match-day 2019-04-10,,24,,,,1.0,1.0,manual_csv,False
+2019-04-11,europa_matchday,Europa League match-day 2019-04-11,,24,,,,1.0,1.0,manual_csv,False
+2019-04-12,nantes_fixture,Nantes football fixture-day 2019-04-12,,24,,,,1.0,1.0,manual_csv,False
+2019-04-16,champions_matchday,Champions League match-day 2019-04-16,,24,,,,1.0,1.0,manual_csv,False
+2019-04-17,champions_matchday,Champions League match-day 2019-04-17,,24,,,,1.0,1.0,manual_csv,False
+2019-04-17,nantes_fixture,Nantes football fixture-day 2019-04-17,,24,,,,1.0,1.0,manual_csv,False
+2019-04-18,europa_matchday,Europa League match-day 2019-04-18,,24,,,,1.0,1.0,manual_csv,False
+2019-04-21,nantes_fixture,Nantes football fixture-day 2019-04-21,,24,,,,1.0,1.0,manual_csv,False
+2019-04-22,public_holiday,Easter Monday,,24,,,,0.6,1.0,calendar_fr,False
+2019-04-28,nantes_fixture,Nantes football fixture-day 2019-04-28,,24,,,,1.0,1.0,manual_csv,False
+2019-04-30,champions_matchday,Champions League match-day 2019-04-30,,24,,,,1.0,1.0,manual_csv,False
+2019-05-01,champions_matchday,Champions League match-day 2019-05-01,,24,,,,1.0,1.0,manual_csv,False
+2019-05-01,public_holiday,Labour Day,,24,,,,0.6,1.0,calendar_fr,False
+2019-05-02,europa_matchday,Europa League match-day 2019-05-02,,24,,,,1.0,1.0,manual_csv,False
+2019-05-05,nantes_fixture,Nantes football fixture-day 2019-05-05,,24,,,,1.0,1.0,manual_csv,False
+2019-05-07,champions_matchday,Champions League match-day 2019-05-07,,24,,,,1.0,1.0,manual_csv,False
+2019-05-08,champions_matchday,Champions League match-day 2019-05-08,,24,,,,1.0,1.0,manual_csv,False
+2019-05-08,public_holiday,Victory in Europe Day,,24,,,,0.6,1.0,calendar_fr,False
+2019-05-09,europa_matchday,Europa League match-day 2019-05-09,,24,,,,1.0,1.0,manual_csv,False
+2019-05-11,nantes_fixture,Nantes football fixture-day 2019-05-11,,24,,,,1.0,1.0,manual_csv,False
+2019-05-18,nantes_fixture,Nantes football fixture-day 2019-05-18,,24,,,,1.0,1.0,manual_csv,False
+2019-05-24,nantes_fixture,Nantes football fixture-day 2019-05-24,,24,,,,1.0,1.0,manual_csv,False
+2019-05-29,europa_matchday,Europa League match-day 2019-05-29,,24,,,,1.0,1.0,manual_csv,False
+2019-05-30,public_holiday,Ascension Day,,24,,,,0.6,1.0,calendar_fr,False
